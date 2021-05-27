@@ -1,3 +1,4 @@
+//All available DNA Bases
 const dnaBases = ['A', 'T', 'C', 'G'];
 
 //Returns a random element from an array
@@ -26,18 +27,34 @@ const pAequorFactory = (ident,bases) => {
       const indexOfselectedBase = Math.floor(Math.random() * this.dna.length);
       const possibleBases = dnaBases.filter(base => base !== this.dna[indexOfselectedBase]);
       this.dna[indexOfselectedBase] = getRandElement(possibleBases);
+    },
+    compareDNA(pAequor){
+      let identicalBases = 0;
+      for(let i = 0; i < this.dna.length; i++){
+        if(this.dna[i] === pAequor.dna[i]) identicalBases++;
+      }
+      let identicalPercentage = identicalBases / this.dna.length * 100;
+      console.log(`Specimen #${this.specimenNum} and Speciment #${pAequor.specimenNum} have ${identicalPercentage}% DNA in common.`)
+    },
+    willLikelySurvive(){
+      numGoodBases = this.dna.reduce((acc, el) => {
+        return el === 'C' || el === 'G' ? ++acc : acc;
+      },0)
+      return (numGoodBases / this.dna.length * 100 >= 60)
     }
   }
 }
 
 //Test Factory
+
 const specimenOne = pAequorFactory(1, mockUpStrand());
+const specimenTwo = pAequorFactory(2, mockUpStrand());
 console.log(specimenOne);
 specimenOne.mutate();
 console.log(specimenOne);
-
-
-
-
+console.log(specimenTwo);
+specimenOne.compareDNA(specimenTwo);
+console.log(specimenOne.willLikelySurvive());
+console.log(specimenTwo.willLikelySurvive());
 
 

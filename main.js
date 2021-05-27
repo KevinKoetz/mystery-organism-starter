@@ -1,7 +1,11 @@
+const dnaBases = ['A', 'T', 'C', 'G'];
+
+//Returns a random element from an array
+const getRandElement = (array) => array[Math.floor(Math.random() * array.length)];
+
 // Returns a random DNA base
 const returnRandBase = () => {
-  const dnaBases = ['A', 'T', 'C', 'G'];
-  return dnaBases[Math.floor(Math.random() * 4)];
+  return getRandElement(dnaBases);
 };
 
 // Returns a random single stand of DNA containing 15 bases
@@ -13,7 +17,24 @@ const mockUpStrand = () => {
   return newStrand;
 };
 
+//Factory function to create multiple P. Aequors. Takes a unique identifying number and and array of DNA Bases
+const pAequorFactory = (ident,bases) => {
+  return {
+    specimenNum: ident,
+    dna: bases,
+    mutate(){
+      const indexOfselectedBase = Math.floor(Math.random() * this.dna.length);
+      const possibleBases = dnaBases.filter(base => base !== this.dna[indexOfselectedBase]);
+      this.dna[indexOfselectedBase] = getRandElement(possibleBases);
+    }
+  }
+}
 
+//Test Factory
+const specimenOne = pAequorFactory(1, mockUpStrand());
+console.log(specimenOne);
+specimenOne.mutate();
+console.log(specimenOne);
 
 
 

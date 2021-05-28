@@ -1,25 +1,26 @@
+const MysteryOrganism = {
 //All available DNA Bases
-const dnaBases = ['A', 'T', 'C', 'G'];
+dnaBases: ['A', 'T', 'C', 'G'],
 
 //Returns a random element from an array
-const getRandElement = (array) => array[Math.floor(Math.random() * array.length)];
+getRandElement() {(array) => array[Math.floor(Math.random() * array.length)]},
 
 // Returns a random DNA base
-const returnRandBase = () => {
-  return getRandElement(dnaBases);
-};
+returnRandBase() {
+  return getRandElement(this.dnaBases);
+},
 
 // Returns a random single stand of DNA containing 15 bases
-const mockUpStrand = () => {
+mockUpStrand() {
   const newStrand = [];
   for (let i = 0; i < 15; i++) {
     newStrand.push(returnRandBase());
   }
   return newStrand;
-};
+},
 
-//Factory function to create multiple P. Aequors. Takes a unique identifying number and and array of DNA Bases
-const pAequorFactory = (ident,bases) => {
+//Factory function to create multiple P. Aequors. Takes a unique identifying number and an array of DNA Bases representing the P. Aequors DNA
+pAequorFactory(ident,bases) {
   return {
     specimenNum: ident,
     dna: bases,
@@ -44,6 +45,7 @@ const pAequorFactory = (ident,bases) => {
     }
   }
 }
+}
 
-
+export {MysteryOrganism};
 

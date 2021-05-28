@@ -1,4 +1,4 @@
-require('./main.js');
+import {MysteryOrganism} from "./MysteryOrganism"
 
 //Test Factory
 

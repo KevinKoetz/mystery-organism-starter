@@ -45,7 +45,7 @@ pAequorFactory(ident,bases) {
     }
   }
 }
-}
+};
 
-export {MysteryOrganism};
+module.exports = MysteryOrganism
 

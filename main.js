@@ -15,10 +15,13 @@ const mockUpStrand = () => {
   return newStrand;
 };
 
-const pAequorFactory = (number, array) => {
+//Factory function to create pAequors
+const pAequorFactory = (specimenNum, dnaStrand) => {
   return {
-    specimenNum: number,
-    dna: array,
+    specimenNum: specimenNum,
+    dna: dnaStrand,
+
+    //Picks a random base inside the dna and changes it against a different base from dnaBases
     mutate () {
       //Pick a random element from dna
       const index = Math.floor(Math.random()*this.dna.length);
@@ -29,6 +32,8 @@ const pAequorFactory = (number, array) => {
       //Change the element to a random new possible element
       this.dna[index] = newValue;
     },
+
+    //Returns the percentage of bases which are the same and on equal positions
     compareDNA(pAequor) {
       //Number of Bases that are equal and on the same position
       let equalBases = 0;
@@ -44,6 +49,8 @@ const pAequorFactory = (number, array) => {
       //Return percentage to be used when finding the pAequor closest related to another
       return percentage;
     },
+
+    //Returns true if at least 60% of the bases are C or G
     willLikelySurvive(){
       //Reduce the DNA Strand to a single percentage Value. 
       const percentage = this.dna.reduce((percentage, base) => {
@@ -56,6 +63,8 @@ const pAequorFactory = (number, array) => {
       },0)
       return (percentage >= 60)    
     },
+
+    //Returns the complement DNA strand. Swaps A<->T and C<->G.
     complementStrand(){
       return this.dna.map(base =>
       //Switch A to T
@@ -90,6 +99,7 @@ const getMostRelated = (pAequors) => {
   for(let i = 0; i < pAequors.length; i++){
     //We only need to compare against each pAequor with a higher index
     for(let j = i + 1; j < pAequors.length; j++)
+    //If the compared pAequors have a higher percentage, save them as the new best.
       if(pAequors[i].compareDNA(pAequors[j]) > mostRelated.percentage){
         mostRelated.firstPAequor = pAequors[i];
         mostRelated.secondPAequor = pAequors[j];
